@@ -1,4 +1,8 @@
-# Augusta University School of Computer and Cyber Sciences Ms and PhD Template
+# Thesis Template for The Graduate School at Augusta University
+
+This Thesis/Dissertation template is primarily aimed at students in [the Graduate School](https://www.augusta.edu/gradschool/) at [Augusta University](https://www.augusta.edu/).
+It is compatible with the ["Electronic Thesis and Dissertations (ETD)" templates](https://guides.augusta.edu/etd/templatesandaccessibility), allows to typeset the document using 
+[markdown](https://commonmark.org/) or [LaTeX](https://www.latex-project.org/), and was approved for usage.
 
 ## Quick Start
 
@@ -20,8 +24,10 @@ You are welcome to reach out to <caubert@augusta.edu> or through [github's issue
 
 ## Presentation
 
-This template was designed for Ms and PhD students from the [School of Cyber and Computer Sciences](https://www.augusta.edu/ccs/) at [Augusta University](https://www.augusta.edu/) as an alternative to the standard, ["ETD"](https://guides.augusta.edu/ld.php?content_id=64866487) template offered by the Graduate School.
-Students more comfortable with the `docx` format or not willing to learn to use [LaTeX](https://www.latex-project.org/) and / or [markdown](https://commonmark.org/) should use this standard template instead.
+This template was designed for Ms and PhD students at [Augusta University](https://www.augusta.edu/) as an alternative to the standard, ["ETD"](https://guides.augusta.edu/ld.php?content_id=64866487) template offered by the Graduate School.
+It is primarily geared toward [School of Cyber and Computer Sciences](https://www.augusta.edu/ccs/) students, but can be used to replace the "ETD" template by all students.
+
+Students more comfortable with the `docx` format or not willing to learn how to use [LaTeX](https://www.latex-project.org/) and / or [markdown](https://commonmark.org/) should use the standard ETD template, accessible from <https://guides.augusta.edu/etd/templatesandaccessibility>, instead.
 
 > [!CAUTION]
 > The student and their advisor are strongly encouraged to make sure that the manuscript comply with the [Forms, Policies, and Procedures](https://www.augusta.edu/gradschool/student-resources.php) of [Augusta University](https://www.augusta.edu/)'s [Graduate School](https://www.augusta.edu/gradschool/) themselves.

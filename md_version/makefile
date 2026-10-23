@@ -7,19 +7,19 @@
 # at https://github.com/debian-tex/latexmk#readme.
 
 # Options for all output formats
-PANDOC_OPTIONS = --listings \
-		--number-sections \
-		--pdf-engine=latexmk \
-		--pdf-engine-opt=-bibtex \
-		--pdf-engine-opt=-pdfxe \
-		--pdf-engine-opt=-emulate-aux-dir \
-		--pdf-engine-opt=-aux-directory=aux \
-		--biblatex \
-		--include-in-header templates/head_a.tex \
-		--include-in-header info/info.tex  \
-		--include-in-header templates/head_b.tex \
-		--include-in-header templates/head_c.tex \
-		--metadata-file=templates/info.md
+PANDOC_OPTIONS = --syntax-highlighting=idiomatic \
+		 --number-sections \
+		 --pdf-engine=latexmk \
+		 --pdf-engine-opt=-bibtex \
+		 --pdf-engine-opt=-pdfxe \
+		 --pdf-engine-opt=-emulate-aux-dir \
+		 --pdf-engine-opt=-aux-directory=aux \
+		 --biblatex \
+		 --include-in-header templates/head_a.tex \
+		 --include-in-header info/info.tex  \
+		 --include-in-header templates/head_b.tex \
+		 --include-in-header templates/head_c.tex \
+		 --metadata-file=templates/info.md
 
 main.pdf : main.md
 	pandoc $< $(PANDOC_OPTIONS) -o $@

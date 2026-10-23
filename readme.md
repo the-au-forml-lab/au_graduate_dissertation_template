@@ -83,4 +83,4 @@ Please, refer to the [Thesis/PhD Dissertation Preparation Booklet](https://www.a
 - The file code/hello_world.c is courtesy of Brian Kernighan.
 - The file pictures/D_un_autre_age.jpg is courtesy of [Jérôme Minard](http://jeromeminard.com/travaux/) and under [copyleft](https://forceg.jimdofree.com/licence-art-libre/).
 - Unless otherwise noted, this template is under [Creative Commons Attribution 4.0 International](LICENSE.md).
-- © [Our contributors](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/graphs/contributors), 2021-2025
+- © [Our contributors](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/graphs/contributors), 2021-2026

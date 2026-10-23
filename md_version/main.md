@@ -145,7 +145,7 @@ You can add additional unicode symbols that may not be supported by this templat
 \newunicodechar{<unicode symbol>}{\ensuremath{<latex command>}}
 ```
 
-(in `head_c.tex` in the markdown version), in this case additionally forcing the symbol `<unicode symbol>` to be rendered in math mode using `\ensuremath`.
+(in `templates/head_c.tex` in the markdown version), in this case additionally forcing the symbol `<unicode symbol>` to be rendered in math mode using `\ensuremath`.
 
 
 ## Theorem, Proof, and Others Environments
@@ -291,11 +291,11 @@ Note that the drawing presented in \autoref{fig:language} was obtained using \La
     \vspace*{\fill} 
     \begin{figure}
         \centering
-        \includegraphics{pictures/languages_overview.pdf}
+        \includegraphics[width=\textheight]{pictures/languages_overview.pdf}
         \caption{Difference between programming languages (simplified)}
         \label{fig:language}
     \end{figure}
-    \vspace*{\fill}
+    \vspace*{\fill} 
 \end{landscape}
 
 # Margins and Fonts
@@ -336,7 +336,24 @@ To declare other unicode symbols as having to be displayed using the Symbola fon
 \newunicodechar{<unicode symbol>}{\symb <unicode symbol>}
 ```
 
-(in `head_c.tex` in the markdown version), so that `<unicode symbol>` will be rendered using the Symbola font.
+(in `templates/head_c.tex` in the markdown version), so that `<unicode symbol>` will be rendered using the Symbola font.
+
+For example, if you try to use the [Hryvnia sign](https://en.wikipedia.org/wiki/Hryvnia_sign) and receive the following error message:
+
+```console
+Latexmk: ====Problematic refs and citations with line #s in .tex file:
+  Missing character: There is no ₴ (U+20B4) in font [lmmono10-regular]:!
+  Missing character: There is no ₴ (U+20B4) in font [fonts/TeXGyreTermes-regular.
+```
+
+Then add^[Interestingly, the code fragment below swap the "₴" and the "{" after "newunicodechar" in this code snippet. Make sure to copy it from the source, or refer to the example in `templates/head_c.tex`.]
+
+```latex
+\newunicodechar{₴}{\symb  ₴} % U+20B4, "Hryvnia sign"
+```
+
+to `templates/head_c.tex` to render it using the Symbola font by default^[Note that some characters, like the [Multiocular O character](https://simple.wikipedia.org/wiki/Multiocular_O), are not provided by Symbola, so you may need to tweak the fonts further to support some characters.], like this: ₴. 
+
  
 <!--
 ⚠ Do not edit ⚠
@@ -345,6 +362,7 @@ the three lines below.
 \clearpage
 \printbibliography[label=chap:references, title=References]
 \let\printbibliography\relax
+
 <!--
 You can remove what follows if you do not need appendices.
 -->

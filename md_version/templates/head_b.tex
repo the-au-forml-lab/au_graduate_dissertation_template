@@ -112,6 +112,14 @@
 % Chapter titles should be centered.
 \renewcommand\raggedchapter{\centering}
 
+%%%%%%%%%%%%%%
+% References %
+%%%%%%%%%%%%%%
+
+% Citations should be parenthesized.
+% https://github.com/the-au-forml-lab/au_ccs_dissertation_template/issues/18
+\renewcommand{\cite}[2][]{\autocite[#1]{#2}}
+
 %%%%%%%%%%%%%
 % Meta-data %
 %%%%%%%%%%%%%

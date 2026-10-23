@@ -31,7 +31,7 @@ watch :
 	find main.md  | entr -p -c 'make'
 
 clean:
-	rm -f main.pdf
+	rm -f main.pdf missfont.log main.tex
 	rm -rf aux
 	rm -rf ../tex_version/
 
@@ -48,4 +48,12 @@ tex: main.md
 check: tex main.pdf
 	latexmk -cd -pdf -silent -xelatex ../tex_version/main.tex
 	cd ../ && ./compare-pdfs.sh md_version/main.pdf tex_version/main.pdf
+	
+# This is to produce a release -- can be safely ignored
+zip:
+	make tex
+	cd ../ && zip -r tex_version tex_version
+	make clean
+	zip -r md_version *
+	mv md_version.zip ../
 	

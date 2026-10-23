@@ -90,7 +90,7 @@ Start by editing the file info/info.tex with your information.
 
 ## Additional Information
 
-Please, refer to the [Thesis/PhD Dissertation Preparation Booklet](https://www.augusta.edu/gradschool/documents/thesis-dissertation-preparation-booklet.pdf) from the graduate school and the University Libraries for additional information, tips and advises.
+Please, refer to the [Thesis/PhD Dissertation Preparation Booklet](https://augustauniversity.app.box.com/s/nnez7dptsdh0g9jgvwridorjbd95gd5d) from the graduate school and the University Libraries for additional information, tips and advises.
 
 ## Examples
 

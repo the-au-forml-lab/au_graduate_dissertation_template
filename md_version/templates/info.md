@@ -4,6 +4,7 @@ classoption:
     - BCOR = 0 pt
     - singlespacing = true 
     - numbers = noenddot
+    - listof = nochaptergap
 mainfont: TeXGyreTermes
 mainfontoptions:
 - Path=fonts/

@@ -286,8 +286,8 @@ public class HelloWorld {
 
 In a figure, as in Listings \ref{lst:demo1}, \ref{lst:demo2} or \ref{lst:demo3} (that uses respectively the backtick, the tildes, and `listinputlisting` to display the code -- this latter option allows to load a file directly).
 
-```{language=coq caption="An inductive definition in Coq" label="lst:demo1"}
-(** Courtesy of https://coq.inria.fr/a-short-introduction-to-coq. **)
+```{language=rocq caption="An inductive definition in Rocq" label="lst:demo1"}
+(** Courtesy of https://rocq-prover.org/docs/tour-of-rocq. **)
 Inductive even : N -> Prop :=
 | even_0 : even 0
 | even_S n : odd n -> even (n + 1)

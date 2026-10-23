@@ -75,7 +75,7 @@ Start by editing the file info/info.tex with your information.
 
 Please, refer to the [Thesis/PhD Dissertation Preparation Booklet](https://www.augusta.edu/gradschool/documents/thesis-dissertation-preparation-booklet.pdf) from the graduate school and the University Libraries for additional information, tips and advises.
 
-## Credits and Licence
+## Credits and License
 
 - This template was created taking inspiration from Augusta University's [Biostat dissertation template](https://guides.augusta.edu/ld.php?content_id=78256224).
 - This template uses and redistributes the [TeX Gyre Termes](http://www.gust.org.pl/projects/e-foundry/tex-gyre/termes) font (version 2.004), placed under the [GUST Font License](https://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt), which is an extension of the [The LaTeX Project Public License](https://www.latex-project.org/lppl.txt).

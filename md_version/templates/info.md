@@ -3,6 +3,7 @@ classoption:
     - oneside
     - BCOR = 0 pt
     - singlespacing = true 
+    - numbers = noenddot
 mainfont: TeXGyreTermes
 mainfontoptions:
 - Path=fonts/
@@ -22,6 +23,7 @@ subtitle: \yoursubtitle
 institute: Augusta University
 biblatexoptions:
     - backend=biber
+    - style=apa
 bibliography: ./references/references.bib
 link-citations: true
 suppress-bibliography: true

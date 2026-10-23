@@ -36,9 +36,9 @@
     \normalsize
 }
 
-%%%%%
-% Emoji support for latex
-%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Emoji support for latex %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[verbose]{newunicodechar}
 
@@ -90,50 +90,19 @@
 % This allow the links to be visually present only if the document is viewed on a screen.
 % Colored distribution inspired by https://tex.stackexchange.com/a/526148
 
-% This is to add color to the footnotes.
-\makeatletter
-\def\@footnotecolor{red}
-\define@key{Hyp}{footnotecolor}{%
- \HyColor@HyperrefColor{#1}\@footnotecolor%
-}
-\patchcmd{\@footnotemark}{\hyper@linkstart{link}}{\hyper@linkstart{footnote}}{}{}
-\makeatother
-
 % Setup new colors
 \AtEndPreamble{
     \hypersetup{
-        linkcolor=augustagrey,
-        citecolor=augustagrey,
-        filecolor=augustablue,
-        urlcolor=augustablue,
-        menucolor=augustagrey,
-        runcolor=augustablue,
+        pdfborder={0 0 1},
+        pdfborderstyle={/S/U/W 1}, % border style will be underline of width 1pt
         linkbordercolor=augustagrey,
         citebordercolor=augustagrey,
         filebordercolor=augustablue,
         urlbordercolor=augustablue,
         menubordercolor=augustagrey,
-        runbordercolor=augustablue,
-        footnotecolor=augustagrey,
+        runbordercolor=augustablue
     }
 }
-
-
-
-% For sideways figures and landscape pages.
-\usepackage{pdflscape}
-
-% For proper quotations.
-\usepackage{csquotes}
-
-% For math. environments
-\usepackage{mathtools}
-\usepackage{amsthm}
-
-% For the BibTex logo, courtesy of https://tex.stackexchange.com/a/198472
-\def\BibTeX{\textrm{B\kern-.05em\textsc{i\kern-.025em b}\kern-.08em T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-
-\newtheorem{theorem}{Theorem}
 
 %%%%%%%%%%%%%%%%%%%%%
 % Code Presentation %
@@ -301,3 +270,83 @@
 % We recommend using the more modern ebproof over
 % the more "traditional" bussproofs,
 \usepackage{ebproof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nice frames, for the documents we will be including %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[breakable]{tcolorbox} % Will be used for frame around included documents.
+% https://tex.stackexchange.com/a/66156
+\DeclareRobustCommand\titleforcurrentframe{temp}  % Title for the current page of the frame.
+% This macro is re-defined in \modifiedincludepdf
+% and \modifiedincludetxt
+\newcommand{\mybox}[1]{%
+    \begin{tcolorbox}[
+        colframe=augustablue,
+        colback=white,
+        width={\dimexpr\textwidth},
+        breakable,
+        adjusted title={\hypersetup{citecolor=white}\titleforcurrentframe}
+    ]
+    #1
+    \end{tcolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands to include pdf %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pdfpages}
+% https://tex.stackexchange.com/questions/198091/get-number-of-pages-of-external-pdf/198095#198095
+\newcommand*{\numberofpages}[1]{%
+    \the\XeTeXpdfpagecount"#1" %
+}
+
+% Counter to add label to individual pages of the pdf.
+% https://tex.stackexchange.com/a/25113
+\newcounter{currentpagecounter}
+\newcounter{totaldocpages}
+% Command to include pdf document.
+% Usage:
+% \modifiedincludepdf{options for includepdf}{label}{full path to the document}{title of the document}{"level" (e.g., section, subsection, etc.)}
+\newcommand{\modifiedincludepdf}[6]{
+    \let\fbox\mybox % includepsf, with the option "frame", use \fbox
+    % to draw the frame. We change the command, to use
+    % our custom frame, that uses tcolorbox.
+    \setcounter{currentpagecounter}{0}
+    \setcounter{totaldocpages}{\numberofpages{#3}}
+    \renewcommand{\titleforcurrentframe}{#4 (p.\ \thecurrentpagecounter\ / \thetotaldocpages) \hfill #6} % #6 acts as a subtitle
+    \includepdf[#1,%
+    width=\textwidth,%
+    pages=-,%
+    frame,
+    clip,
+    pagecommand={
+        \stepcounter{currentpagecounter} % We increment the counter for the number of pages.
+        \label{#2.\thecurrentpagecounter}% We add a label of the form "label.pagenumber".
+    },
+    link = true,
+    linkname = {#2},
+    addtotoc={1, #5, 1, #4, #2} % We add an entry to the table of content.
+    ]{#3}
+}
+
+%%%%%%%%%
+% Misc. %
+%%%%%%%%%
+
+% To set maximum width and height, courtesy of https://github.com/jgm/pandoc-templates/blob/master/default.latex.orig
+\makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+    \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+
+\usepackage{pdflscape}  % For sideways figures and landscape pages.
+\usepackage{csquotes}   % For proper quotations.
+\usepackage{mathtools}  % For math. environments
+\usepackage{amsthm}     % For math. environments
+
+% For the BibTex logo, courtesy of https://tex.stackexchange.com/a/198472
+\def\BibTeX{\textrm{B\kern-.05em\textsc{i\kern-.025em b}\kern-.08em T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newtheorem{theorem}{Theorem}

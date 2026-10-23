@@ -15,19 +15,19 @@
 % https://tex.stackexchange.com/a/297655
 \usepackage[english]{datetime2}                    % To extract the month and year from the date.
 \usepackage{chngcntr}                              % To obtain a "global numbering" of tables and figures.
+\usepackage{xpatch}                                % To patch some commands, for the title page.
 
 %%%%%%%%%%%%%%
 % Cover page %
 %%%%%%%%%%%%%%
 
-
 % We add some space after the subtitle if it
 % is defined, after the title if not.
 \ifdefined\yoursubtitle
     \makeatletter
-        \apptocmd{\@subtitle}{\par}{}{}
+        \xapptocmd{\@subtitle}{\par}{}{}
     \makeatother
-    \else
+\else
     \let\yoursubtitle\par\vspace{1em}
 \fi
 
@@ -35,45 +35,45 @@
 % before your name, and change the font 
 % to 16pts.
 \makeatletter
-    \pretocmd{\@author}{By \\}{}{}
+    \xpatchcmd{\maketitle}{\@author}{By \\ \@author}{}{}
 \makeatother
 
 % The following extract the month and year
 % from the date, and display them in the title.
 \DTMsavedate{mydate}{\yourdate}
 \makeatletter
-    \renewcommand{\yourdate}{%
-        \DTMenglishmonthname{\@dtm@month}\\
-        \@dtm@year
-    }
+\renewcommand{\yourdate}{%
+    \DTMenglishmonthname{\@dtm@month}\\
+    \@dtm@year
+}
 \makeatother
 
 % This add some information between 
 % your name and the date.
 \makeatletter
-    \pretocmd{\yourdate}{%
-        \vspace{1em}
-        Submitted to the Faculty of the Graduate School\\
-        of Augusta University in partial fulfillment\\
-        of the Requirements of the Degree of\\
-        \iftoggle{ms}{Master of Science}{Doctor of Philosophy} % This toggle will display either 
-                                                               % "Master of Science" or "Doctor of Philosophy"
-                                                               % based on the choice made in info.tex.
-        \vspace{1em}\par
-    }{}{}
+\pretocmd{\yourdate}{%
+    \vspace{1em}
+    Submitted to the Faculty of The Graduate School\\
+    of Augusta University in partial fulfillment\\
+    of the Requirements of the Degree of\\
+    \iftoggle{ms}{Master of Science}{Doctor of Philosophy} % This toggle will display either 
+    % "Master of Science" or "Doctor of Philosophy"
+    % based on the choice made in info.tex.
+    \vspace{1em}\par
+}{}{}
 \makeatother
 
 % This add copyright information, 
 % abusing the "publisher" field.
 \makeatletter
-    \publishers{%
-        \textcopyright~\@dtm@year{} \yourname%
-        \ifdefined\yourlicence{\\[.1em] \yourlicence}
-        \else
-        \relax
-        \fi
-        \pagenumbering{gobble} % No page number on next page.
-    }
+\publishers{%
+    \textcopyright~\@dtm@year{} by \yourname%
+    \ifdefined\yourlicence{\\[.1em] \yourlicence}
+    \else
+    \relax
+    \fi
+    \pagenumbering{gobble} % No page number on next page.
+}
 \makeatother
 
 %%%%%%%%%%%
@@ -102,18 +102,8 @@
 % No space above chapters.
 % https://tex.stackexchange.com/a/231940
 \RedeclareSectionCommand[
-  beforeskip=0pt
+    beforeskip=0pt
 ]{chapter}
-
-%%%%%%%%%%%%%%%%%%%%%%%
-% Headers and footers %
-%%%%%%%%%%%%%%%%%%%%%%%
-
-% We only want page numbers, no headers.
-\pagestyle{plain}
-% No page number for the first part of the document.
-\thispagestyle{empty}
-
 
 %%%%%%%%%%
 % Titles %
@@ -132,7 +122,8 @@
         pdfauthor={\yourname},
         pdflang={en},
         pdfkeywords={\yourkeywords},
-        pdfauthor={\yourname}
+        pdfauthor={\yourname},
+        plainpages=false % Not sure this is helpful -- I thought it would help with https://github.com/the-au-forml-lab/au_ccs_dissertation_template/issues/13
     }
 }
 
@@ -159,20 +150,33 @@
 % Spacing %
 %%%%%%%%%%%
 
-
 % Everything must be double spaced
-\linespread{2}
-% *but* the sectioning commands
-% (titles, subtitles, etc.).
+% "Double space" has multiple definitions,
+% we implement two options below, and use the 
+% first by default.
+% Refer to https://tex.stackexchange.com/q/13742
+% for more details.
+
+% Option A:
+\usepackage[nodisplayskipstretch]{setspace}
+\doublespacing
+
+% Option B:
+% Uncomment lines with two % to use.
+% and comment Option A to use.
+%% \linespread{2}
+% But the sectionning commands
+% (titles, subtitles, etc.)
+% should *not* be double-spaced.
 % https://tex.stackexchange.com/a/365269/
-\addtokomafont{disposition}{\linespread{1}}
+%% \addtokomafont{disposition}{\linespread{1}}
 % Since biblatex is loaded quite late in the template 
 % (cf. https://github.com/jgm/pandoc-templates/blob/master/default.latex )
 % we defer this command, that let the line space in the references be only 
 % single-spaced, to the end of the preamble.
-\AtEndPreamble{
-    \AtNextBibliography{\linespread{1}}
-}
+%% \AtEndPreamble{
+%%    \AtNextBibliography{\linespread{1}}
+%% }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,6 +185,7 @@
 
 \pretocmd{\dedication}{%
     \chapter*{Acknowledgements}
+    \pdfbookmark[0]{Acknowledgements}{toc}
     \pagenumbering{gobble}      % No page number
     \par                        % New paragraph
     {
@@ -198,41 +203,49 @@
 % https://tex.stackexchange.com/a/40547
 % https://tex.stackexchange.com/a/68227
 \makeatletter
-    \newenvironment{abstract}{%
-        % At the beginning of the environment:
-        \pagenumbering{gobble} % No page number.
-        \chapter*{Abstract}
-        {                       % This group must be single-spaced.
-            \linespread{1}
-            \textsc{\yourname} \\
-            \@title \\
-            Under the direction of \textsc{\youradvisor}
-        }
-        \\[3em]
-      }%
-     {%
-      %  At the end of the environment:
-      \\[3em] \textsc{Keywords}: \StrSubstitute{\yourkeywords}{,}{\textperiodcentered} % We list the keywords.
-      \clearpage
-      \pagestyle{empty}
-      % The table of content
-      % follows immediately (and automatically)
-      % the abstract.
-      \renewcaptionname{english}%
-        {\contentsname}%
-        {Table of Contents}  % We rename the table of contents.
-      \tableofcontents        % Table of contents.
-      \iftotaltables          % If there are tables in the document…
-        \listoftables         % …write out the List of Tables
-      \fi
-      \iftotalfigures         % If there are figures in the document…
-        \listoffigures        % …write out the List of Figures
-      \fi
-      \iftotallstlistings     % If there are listings in the document…
-        \lstlistoflistings    % …write out the List of Listings.
-      \fi
+\newenvironment{abstract}{%
+    % At the beginning of the environment:
+    \chapter*{Abstract}
+    \pdfbookmark[0]{Abstract}{abs} % We add it to the pdf toc
+    {                       % This group must be single-spaced.
+        \linespread{1}
+        \textsc{\yourname} \\
+        \@title \\
+        (Under the direction of \textsc{\youradvisor})
+    }
+    \\[3em]
+}%
+{%
+    %  At the end of the environment:
+    \\[3em] \textsc{Keywords}: \StrSubstitute{\yourkeywords}{,}{\textperiodcentered} % We list the keywords.
+    \clearpage
+    % The table of content
+    % follows immediately (and automatically)
+    % the abstract.
+    \renewcaptionname{english}%
+    {\contentsname}%
+    {Table of Contents}                    % We rename the table of contents.
+    \hypertarget{tableofcontents}{}\bookmark[level=chapter,dest=tableofcontents]{\contentsname}
+    \tableofcontents\clearpage                 % Table of contents.
+    \iftotaltables                             % If there are tables in the document…
+        \hypertarget{listoftables}{}\bookmark[level=chapter,dest=listoftables]{\listtablename}   %…we add the List of Tables to the pdf toc.
+        \listoftables\clearpage              % …and write it.
+    \fi
+    \iftotalfigures                          % If there are figures in the document…
+        \hypertarget{listoffigures}{}\bookmark[level=chapter,dest=listoffigures]{\listfigurename}   % …and add it to the pdf toc.
+        \listoffigures\clearpage             % …write out the List of Figures
+        \fi
+    \iftotallstlistings                      % If there are listings in the document…
+        \renewcommand{\lstlistlistingname}%
+        {List of Listings}                     % …we rename the simple "Listings" to "List of Listings"
+        % https://stackoverflow.com/a/2709986
+        \hypertarget{listoflistings}{}\bookmark[level=chapter,dest=listoflistings]{\lstlistlistingname}   %…we add the List of Tables to the pdf toc.
+        \lstlistoflistings\clearpage         % …write out the List of Listings.
+    \fi
 }
 \makeatother
+
+\pagestyle{empty}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Names of tables and captions %
@@ -245,13 +258,11 @@
 \AtEndPreamble{
     \DeclarePrintbibliographyDefaults{heading=bibintoc} % We add the references in the table of contents
     \defbibheading{bibliography}[\bibname]{%
-    \chapter*{#1}%
-    \markboth{#1}{#1}}
+        \chapter*{#1}%
+        \markboth{#1}{#1}}
 }
 % https://tex.stackexchange.com/a/544718
-% We rename the simple "Listings" to "List of Listings"
-\renewcommand{\lstlistlistingname}{List of Listings}
-% https://stackoverflow.com/a/2709986
+
 
 % Counters for figures, tables and listings
 % are global, and not per chapter.
@@ -266,8 +277,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifdefined\yourmention
-\usepackage{draftwatermark}
-\SetWatermarkText{\yourmention}
-\SetWatermarkScale{2.27}
-\SetWatermarkColor{augustagrey!20}
+    \usepackage{accsupp} % We make it impossible to select the mention
+    % cf. https://tex.stackexchange.com/a/309878
+    \usepackage{draftwatermark}
+    \SetWatermarkText{\BeginAccSupp{method=escape,ActualText={}}\yourmention\EndAccSupp{}}
+    \SetWatermarkScale{2}
+    \SetWatermarkColor{augustagrey!20}
 \fi

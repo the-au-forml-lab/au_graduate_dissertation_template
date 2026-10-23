@@ -31,12 +31,21 @@ watch :
 	find main.md  | entr -p -c 'make'
 
 clean:
-	rm main.pdf
+	rm -f main.pdf
 	rm -rf aux
+	rm -rf ../tex_version/
 
 tex: main.md
 	@pandoc $(PANDOC_OPTIONS) -s $< -o main.tex
 	@mkdir -p ../tex_version/
-	@cp -r main.tex fonts/ references/ pictures/ code/ ../tex_version/
+	@cp -r main.tex fonts/ references/ pictures/ pdf/ code/ ../tex_version/
+	@sed -i '1i % !TeX program = xelatex\n% !BIB program = biber\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n% Welcome! Do not anything until "%%% To be filled %" %\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n' ../tex_version/main.tex	
 	@echo "Your .tex version is available at ../tex_version/. Compile with latexmk -pdf -xelatex main.tex"
 
+# This recipe checks that the md and tex version produce identical pdfs.
+# Requires to place compare-pdfs.sh in root folder,
+# script available at https://github.com/iSimsi/compare-pdfs
+check: tex main.pdf
+	latexmk -cd -pdf -silent -xelatex ../tex_version/main.tex
+	cd ../ && ./compare-pdfs.sh md_version/main.pdf tex_version/main.pdf
+	

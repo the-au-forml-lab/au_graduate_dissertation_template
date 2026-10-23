@@ -26,6 +26,8 @@ and must be written in LaTeX, so you can create new lines
 using "\\" and "\\[2em]" if you want more space.
 -->
 
+\frontmatter
+
 \dedication{
 This part serves two purposes.\\[1em]
 To write the acknowledgments (as a \enquote{\emph{Thank you note}}).
@@ -45,13 +47,13 @@ The keywords will be automatically inserted at the end.
 -->
 
 \begin{abstract}
-The abstract must not exceed 350 words.
-It must consist of the briefest possible summary of the thesis / dissertation and the conclusions reached.
-Explanatory matter and opinion must be omitted.
+The abstract consists of a succinct summary of the thesis/dissertation and the conclusions reached.
+Opinions should be omitted.
 \end{abstract}
 
-\cleardoublepage
-\pagenumbering{arabic}
+\mainmatter
+\pagestyle{plain}
+
 
 <!--
 All the rest of the document can be written either in Latex,
@@ -62,10 +64,15 @@ but you should feel free to erase all of it.
 # Introduction
 
 This document is a guide on how to use it ("how meta!"), and its structure does not reflect the structure of a Thesis: you will need to erase (almost) all of its body and fill it with your own, organized in a coherent manner respectful of your reader's expectations, of your fields guidelines, and in agreement with your advisor.
+Note that The Graduate School recommends using APA [@American_Psychological_Association2023], that this document is set-up to use it, and that using another style requires approval of the Dean of The Graduate School prior to writing the thesis or dissertation.
 
 It is very important that you comply with all of the graduate school's policies [@gradschool_policies].
 This template was carefully crafted with highest standards in mind, and respects all of the graduate schools requirements.
-You can find additional information on the ["The Graduate School Reference Center: ETD Templates & Preparation Booklet"](https://guides.augusta.edu/graduateschool/template) or, more generally, on [this template's repository](https://github.com/aubertc/au_ccs_dissertation_template).
+You can find additional information in the ["Thesis/Dissertation Preparation Booklet"](https://augustauniversity.app.box.com/s/vj0ygpy8tvyqmsbae8y0qp9767ta7jb9),
+<!--
+also at 
+https://augustauniversity.app.box.com/s/pppatek4czrmc14gxvxhwb405bnbiq76
+--> in the ["Electronic Theses and Dissertations (ETD)"](https://guides.augusta.edu/etd) help page, and in [this template's repository](https://github.com/the-au-forml-lab/au_ccs_dissertation_template).
 
 Normally, what you can and cannot edit is clearly labeled in the source code, either at the beginning of the file, or with 
 
@@ -76,7 +83,7 @@ Markdown only
 
 ## Title Levels 
 
-As indicated in the koma-script manual, the class `scrbook` that is used for this document has access to 6 levels of titles:
+As indicated in the [Section 3.6 of the koma-script manual](https://mirror.las.iastate.edu/tex-archive/macros/latex/contrib/koma-script/doc/scrguide-en.pdf#section.3.16), the `scrbook` class that is used for this document has access to 6 levels of titles:
 
 ```
 \chapter{Test}
@@ -90,7 +97,7 @@ As indicated in the koma-script manual, the class `scrbook` that is used for thi
 Only Chapters, Sections and Subsections will appear in the table of contents, by design.
 
 Markdown only
-~ Note that pandoc's `#` corresponds to Chapter, and that increasing the number of `#` increases the level of heading.
+~ pandoc follows the [ATX heading](https://spec.commonmark.org/0.31.2/#atx-heading) convention, and has `#` correspond to Chapter, and that increasing the number of `#` increases the level of heading.
 
 ### Subsection
 
@@ -110,7 +117,7 @@ This is a sub-paragraph.
 
 ## Debugging
 
-If this template does not "work" as expected, feel free to [open an issue](https://github.com/aubertc/au_ccs_dissertation_template/issues) or reach out to <caubert@augusta.edu>, after having looked at `aux/input.log` as (probably) indicated by latexmk.
+If this template does not "work" as expected, refer to the source code of the present document, read `aux/input.log` (md version) or `main.log` (tex version), then feel free to [open an issue](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/issues) or reach out to <caubert@augusta.edu>.
 
 # References and Bibliography
 
@@ -193,9 +200,27 @@ You can easily represent formal proofs using \LaTeX's ebproof or bussproof packa
     \end{prooftree}
 \end{center}
 
-# Figures, Tables, (Code) Listings and Landscape Pages
+# Inserting PDFs, Figures, Tables and (Code) Listings
 
-## Figures
+## Inserting PDFs
+
+PDF documents can be inserted using `pdfpages`'s `\includepdf` command.
+For commodity, a `\modifiedincludepdf` is provided:
+
+```tex
+\modifiedincludepdf{options for includepdf}%
+    {label}%
+    {full path to the document}%
+    {title of the document}%
+    {"level" (e.g., section, subsection, etc.)}
+```
+
+Note that using `label.x` will refer to the page `x` of the inserted document (starting with 1): refer to the source code of this current document for an example usage.
+We insert [in the following pages](#pdf:Gluck13) (pp. \pageref{pdf:Gluck13.1}--\pageref{pdf:Gluck13.9}) an article as an example of PDF insertion.
+
+\modifiedincludepdf{}{pdf:Gluck13}{pdf/simulation_of_two_ways_pushdown_automata_revisited.pdf}{A paper proving concisely a result in automata theory that helped solve a real programming problem~\cite{DBLP:journals/corr/Gluck13}}{subsection}
+
+## Inserting Figures
 
 Markdown only
 ~  You can easily insert [images and figures](https://pandoc.org/MANUAL.html#images) using Pandoc, as in \autoref{fig:d_un_autre_age}, a painting by [Jérôme Minard](http://jeromeminard.com/travaux/) under [copyleft](https://forceg.jimdofree.com/licence-art-libre/).
@@ -203,7 +228,7 @@ Markdown only
 ![_D'un autre âge_\label{fig:d_un_autre_age}](pictures/D_un_autre_age.jpg){width=80%}
 
 
-## Tables
+## Inserting Tables
 
 Markdown only
 ~  You can write tables using [pandoc's syntax*es*](https://pandoc.org/MANUAL.html#tables), as in Tables \ref{tbl:demo1}, \ref{tbl:demo2} and \ref{tbl:demo3} (all borrowed from <https://www.flutterbys.com.au/stats/tut/tut17.3.html>).
@@ -241,10 +266,10 @@ Markdown only
 +---------------+---------------+--------------------+
 : The price and advantages of fruits \label{tbl:demo3}
 
-## Code Listings
+## Inserting Code Listings
 
 Code is displayed using the listings package.
-Check the "Table 1: Predefined  languages" of the listings package documentation to see the list of supported languages by default.
+Check the ["Table 1: Predefined  languages" of the listings package documentation](https://texdoc.org/serve/listings.pdf/0#table.1) to see the list of supported languages by default.
 
 Markdown only
 ~  Your can display code using [various possible syntaxes](https://pandoc.org/MANUAL.html#verbatim-code-blocks).
@@ -278,14 +303,14 @@ for num in {000..2}; do echo "$num"; done
 \lstinputlisting[language=C, caption={"\emph{Hello World}" in C}, label={lst:demo3}]{code/hello_world.c}
 
 
-## Landscape Pages
+# Landscape Pages
 
 You can obtain landscape pages using the landscape package in \LaTeX.
 
 Markdown only
 ~  This feature is not accessible in pure markdown: if you want to have landscape pages, you need to use \LaTeX commands in your document.
 
-Note that the drawing presented in \autoref{fig:language} was obtained using \LaTeX's package tiKz, and that the source code is shared in the pictures folder.
+Note that the drawing presented in \autoref{fig:language} was obtained using [\LaTeX's package tiKz](https://tikz.dev/), and that the source code is shared in the pictures folder.
 
 \begin{landscape}
     \vspace*{\fill} 
@@ -359,7 +384,7 @@ to `templates/head_c.tex` to render it using the Symbola font by default^[Note t
 ⚠ Do not edit ⚠
 the three lines below.
 -->
-\clearpage
+\backmatter
 \printbibliography[label=chap:references, title=References]
 \let\printbibliography\relax
 

@@ -72,7 +72,7 @@ You can find additional information in the ["Thesis/Dissertation Preparation Boo
 <!--
 also at 
 https://augustauniversity.app.box.com/s/pppatek4czrmc14gxvxhwb405bnbiq76
---> in the ["Electronic Theses and Dissertations (ETD)"](https://guides.augusta.edu/etd) help page, and in [this template's repository](https://github.com/the-au-forml-lab/au_ccs_dissertation_template).
+--> in the ["Electronic Theses and Dissertations (ETD)"](https://guides.augusta.edu/etd) help page, and in [this template's repository](https://github.com/the-au-forml-lab/au_graduate_dissertation_template).
 
 Normally, what you can and cannot edit is clearly labeled in the source code, either at the beginning of the file, or with 
 
@@ -117,7 +117,7 @@ This is a sub-paragraph.
 
 ## Debugging
 
-If this template does not "work" as expected, refer to the source code of the present document, read `aux/input.log` (md version) or `main.log` (tex version), then feel free to [open an issue](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/issues) or reach out to <caubert@augusta.edu>.
+If this template does not "work" as expected, refer to the source code of the present document, read `aux/input.log` (md version) or `main.log` (tex version), then feel free to [open an issue](https://github.com/the-au-forml-lab/au_graduate_dissertation_template/issues) or reach out to <caubert@augusta.edu>.
 
 # References and Bibliography
 

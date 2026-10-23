@@ -9,18 +9,18 @@ It is compatible with the ["Electronic Thesis and Dissertations (ETD)" templates
 Pick a language:
 
 - [markdown](https://commonmark.org/)
-    - Download and extract [`md_version.zip`](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/releases/download/latest/md_version.zip)
+    - Download and extract [`md_version.zip`](https://github.com/the-au-forml-lab/au_graduate_dissertation_template/releases/download/latest/md_version.zip)
     - Check [the requirements](#requirements-1)
     - Have a look at the `main.pdf` files.
     - Edit `main.md` and run `make` 
 
 - [LaTeX](https://www.latex-project.org/)
-    - Download and extract [`tex_version.zip`](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/releases/download/latest/tex_version.zip)
+    - Download and extract [`tex_version.zip`](https://github.com/the-au-forml-lab/au_graduate_dissertation_template/releases/download/latest/tex_version.zip)
     - Check [the requirements](#requirements).
     - Edit `main.tex`.
     - Compile with `latexmk -pdf -xelatex main.tex`
 
-You are welcome to reach out to <caubert@augusta.edu> or through [github's issue tracker](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/issues) if you have questions, preferably after reading the instructions below and the [additional documentation](md_version/main.pdf).
+You are welcome to reach out to <caubert@augusta.edu> or through [github's issue tracker](https://github.com/the-au-forml-lab/au_graduate_dissertation_template/issues) if you have questions, preferably after reading the instructions below and the [additional documentation](md_version/main.pdf).
 
 ## Presentation
 
@@ -33,7 +33,7 @@ Students more comfortable with the `docx` format or not willing to learn how to 
 > The student and their advisor are strongly encouraged to make sure that the manuscript comply with the [Forms, Policies, and Procedures](https://www.augusta.edu/gradschool/student-resources.php) of [Augusta University](https://www.augusta.edu/)'s [Graduate School](https://www.augusta.edu/gradschool/) themselves.
 > This template was developed with extreme care, but students and advisors are ultimately responsible for the final document produced.
 
-This template is offered in two versions, at <https://github.com/the-au-forml-lab/au_ccs_dissertation_template/releases/latest/>:
+This template is offered in two versions, at <https://github.com/the-au-forml-lab/au_graduate_dissertation_template/releases/latest/>:
 
 - The markdown version is a [markdown](https://commonmark.org/) document that can be compiled using [pandoc](https://pandoc.org/).
 - The `tex` version is a standard `tex` document that can be compiled using [latexmk](https://mg.readthedocs.io/latexmk.html) or any standard LaTeX distribution,
@@ -85,7 +85,7 @@ Start by editing the file info/info.tex with your information.
 - The ability to execute [makefile](https://en.wikipedia.org/wiki/Makefile) (e.g., a UNIX system, a system with [Cygwin](https://en.wikipedia.org/wiki/Cygwin), or [some other trick](https://stackoverflow.com/q/2532234/)), or you can also simply open the [makefile](md_version/makefile) file to "extract" the pandoc options needed to compile properly this document,
 - the latest version of [pandoc](https://pandoc.org/installing.html),
 - [LaTeX](https://www.latex-project.org/get/) (refer to the instructions on the [pandoc installation page](https://pandoc.org/installing.html) or at  <https://tex.stackexchange.com/q/1092>), it is probaby better to install a minimal installation, and then to fetch the missing packages one by one, using e.g. `/usr/local/texlive/2021/bin/x86_64-linux/tlmgr install environ` for the `environ` package,
-- [latexmk](https://mg.readthedocs.io/latexmk.html) ([version 4.74. or higher](https://github.com/aubertc/au_ccs_dissertation_template/issues/1), it is possible that it is already part of your LaTeX installation),
+- [latexmk](https://mg.readthedocs.io/latexmk.html) ([version 4.74. or higher](https://github.com/aubertc/au_graduate_dissertation_template/issues/1), it is possible that it is already part of your LaTeX installation),
 - [entr](https://github.com/eradman/entr) if you want  to use the command `make watch` that automatically re-compile your source when it is saved.
 
 ## Additional Information
@@ -106,4 +106,4 @@ Please, refer to the [Thesis/PhD Dissertation Preparation Booklet](https://www.a
 - The file pdf/simulation_of_two_ways_pushdown_automata_revisited.pdf is courtesy of Robert Glück and under Creative Commons Attribution License.
 - The file pictures/D_un_autre_age.jpg is courtesy of [Jérôme Minard](http://jeromeminard.com/travaux/) and under [copyleft](https://forceg.jimdofree.com/licence-art-libre/).
 - Unless otherwise noted, this template is under [Creative Commons Attribution 4.0 International](LICENSE.md).
-- © [Our contributors](https://github.com/the-au-forml-lab/au_ccs_dissertation_template/graphs/contributors), 2021-2026
+- © [Our contributors](https://github.com/the-au-forml-lab/au_graduate_dissertation_template/graphs/contributors), 2021-2026

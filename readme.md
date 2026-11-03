@@ -96,8 +96,14 @@ Please, refer to the [Thesis/PhD Dissertation Preparation Booklet](https://augus
 
 The template [is available on overleaf](https://www.overleaf.com/project/6adbb714d3bcdaeacc9b26d3/share#25f5eba859442541fe34153a5297ccc23693dc4e3bc22022).
 
-- [Neea Rusch](https://neea.pl/) wrote her thesis using this template, and made its source code publicly accessible at <https://github.com/nkrusch/dissertation>.
+- [Neea Rusch](https://neea.pl/) wrote her thesis using this template, and made [its source code publicly accessible](https://neea.pl/dissertation/).
 - Adam Mansour completed his Ms thesis using his template, but it is unfortunately not publicly accessible.
+
+The list of successfully defended manuscripts can be accessed through [ProQuest](https://www.proquest.com/) using the following query:
+
+```text
+DG(Ph.D) AND SCH(1907) AND DEP(Computer and Cyber Sciences)
+```
 
 ## Credits and License
 

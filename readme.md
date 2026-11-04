@@ -83,7 +83,7 @@ Start by editing the file info/info.tex with your information.
 #### Requirements
 
 - The ability to execute [makefile](https://en.wikipedia.org/wiki/Makefile) (e.g., a UNIX system, a system with [Cygwin](https://en.wikipedia.org/wiki/Cygwin), or [some other trick](https://stackoverflow.com/q/2532234/)), or you can also simply open the [makefile](md_version/makefile) file to "extract" the pandoc options needed to compile properly this document,
-- the latest version of [pandoc](https://pandoc.org/installing.html),
+- [pandoc](https://pandoc.org/installing.html), version 3.12.1 or later
 - [LaTeX](https://www.latex-project.org/get/) (refer to the instructions on the [pandoc installation page](https://pandoc.org/installing.html) or at  <https://tex.stackexchange.com/q/1092>), it is probaby better to install a minimal installation, and then to fetch the missing packages one by one, using e.g. `/usr/local/texlive/2021/bin/x86_64-linux/tlmgr install environ` for the `environ` package,
 - [latexmk](https://mg.readthedocs.io/latexmk.html) ([version 4.74. or higher](https://github.com/aubertc/au_graduate_dissertation_template/issues/1), it is possible that it is already part of your LaTeX installation),
 - [entr](https://github.com/eradman/entr) if you want  to use the command `make watch` that automatically re-compile your source when it is saved.
